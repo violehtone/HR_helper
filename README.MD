@@ -1,7 +1,11 @@
 # HR Helper
-Have you ever wondered how to speed up the selection of the best developer candidates? Don't worry - HR helper api is here to help! :)
+Are you a technical recruiter who is looking for talented software developers?
 
-HR helpre is an API that helps HR people to quickly fetch relevant information about a developer candidate by utilizing information from Github API v3.
+Does the following situation sound familiar to you? - You publish a job ad for a software developer position, and immediately you'll get hundreds (if not thousands) of applications. How to quickly determine which of these applicants you should invite to an interview?
+
+**Don't worry!** The 'HR helper API' is here to help you :)
+
+HR helper is an API that helps HR people to quickly fetch relevant information about a developer candidate by utilizing information from Github API v3.
 
 By using the github username as an input, this api provides relevant information about the user, such as his/her greatest project and the different programming languages he/she has worked with so far.
 
@@ -11,13 +15,22 @@ _this project is still work in progess and is currently only a POC!_
 **Running server locally**
 To run the API locally, you need to have Flask installed (you can install it with pip install flask)
 
-To start this server locally, simply input the following on command line:
+To start this server locally, simply clone the repository and input the following on command line:
 ```
 $ export FLASK_APP=HR_helper.py
 $ flask run
 ```
 
-**Using API online**
+and then you can fetch the user information with the following command:
+```
+http://{port}?user={username}
+```
+
+where {port} is the port that the service is running in and {username} is the person's github username that you are looking for.
+
+
+**Accessing the API online**
+
 This HR-helper API is also running online on Heroku. You can  access the API  at
 
 ```
@@ -28,11 +41,11 @@ where {username} is the github account of the person you're looking for
 
 
 ## Using the HR helper API
-The HR helper API currently accepts only one type of requests as shown below. Given the github username, the API just simply fetches all the relevant information of this user.
+The HR helper API currently accepts only one type of requests as shown above. Given the github username, the API just simply fetches all the relevant information of this user.
 
-Example:
+Example output of the api with the following GET request
 ```
-GET http://...?user=violehtone
+https://violehtonen-hrhelper.herokuapp.com/?user=violehtone
 ```
 
 ```json

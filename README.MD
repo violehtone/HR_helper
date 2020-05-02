@@ -17,29 +17,31 @@ The HR helper API currently accepts only one type of requests as shown below. Gi
 
 Example:
 ```
-GET ?user=violehtone
+GET http://...?user=violehtone
 ```
 
 ```json
 {
-    "avatar_url":"https://avatars1.githubusercontent.com/u/33144646?v=4",
-    "biggest_repo": {
-        "language":"Python",
-        "name":"SB1",
-        "size":95465
-        },
-    "html_url":"https://github.com/violehtone",
-    "name":"Ville Lehtonen",
-    "percentage_of_programming_languages_used":{
-        "HTML":0.13793103448275862,
-        "Java":0.13793103448275862,
-        "JavaScript":0.3448275862068966,
-        "Python":0.27586206896551724,
-        "R":0.10344827586206896
-        },
- "programmer_level":"Rising star",
- "public_repos":32
- }
+    "user_information": {
+        "name": "Ville Lehtonen",
+        "avatar_url": "https://avatars1.githubusercontent.com/u/33144646?v=4",
+        "html_url": "https://github.com/violehtone",
+        "public_repos": 33
+    },
+    "Most_significant_work": {
+        "Repository name": "SB1",
+        "Programming language used": "Python",
+        "Project size (in rows)": 95465,
+    },
+    "Programming languages used (%)": {
+        "HTML": "13%",
+        "Java": "13%",
+        "JavaScript": "33%",
+        "Python": "30%",
+        "R": "10%"
+    },
+    "programmer_level": "Rising star",
+}
 ```
 
 ## Author

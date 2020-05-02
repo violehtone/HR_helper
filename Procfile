@@ -1,1 +1,1 @@
-web: gunicorn -b :$PORT app:HR_helper
+web: gunicorn HR_helper:app

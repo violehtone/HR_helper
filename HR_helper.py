@@ -5,14 +5,6 @@ import json
 
 app = Flask(__name__)
 
-# command line to run:
-#$ export FLASK_APP=hello_world.py
-#$ flask run
-
-# Some github API calls
-# - GET https://api.github.com/users/violehtone
-# - GET https://api.github.com/users/violehtone/repos?per_page=50
-
 #TODO:
 # Add error handling (i.e. if key is not in dictionary or it is None etc.)
 # Test with multiple github accounts
@@ -41,6 +33,38 @@ def get_user():
         #if user was not found, return 404
         abort(404)
 
+    repo_and_languages = getBiggestRepoAndProgrammingLanguagesUsed(repo_data)
+    biggest_repo = repo_and_languages[0]
+    programming_languages = repo_and_languages[1]
+
+    # Add a 'programmer level' for the user based on the amount of repos
+    result['programmer_level'] = defineProgrammerLevel(result)
+    # Add information on biggest repo
+    result["biggest_repo"] = biggest_repo
+    # Add percentages of programming languages used
+    result['percentage_of_programming_languages_used'] = calculatePercentageOfProgrammingLanguagesUsed(programming_languages)
+    
+    return jsonify(result)
+
+
+def defineProgrammerLevel(result):
+    """ Takes a json object with a key 'public_repos' and defines the level of the programmer  """
+    if result['public_repos'] >= 40:
+        programmer_level = 'Godlike developer'
+    elif result['public_repos'] >= 20:
+        programmer_level = 'Rising star'
+    else:
+        programmer_level = 'Beginner :)'
+    
+    return programmer_level
+
+
+def calculatePercentageOfProgrammingLanguagesUsed(programming_languages):
+    total = sum(programming_languages.values())
+    return {k: v / total for total in (sum(programming_languages.values()),) for k, v in programming_languages.items()}
+
+
+def getBiggestRepoAndProgrammingLanguagesUsed(repo_data):
     # Find repo with biggest size
     biggest_repo_size = 0
     biggest_repo_index = 0
@@ -48,8 +72,6 @@ def get_user():
 
     for i in range(0, len(repo_data)):
         # Store the index of the biggest repo
-        print("DEBUGGING repo_data[i]:", repo_data[i]["size"], type(repo_data[i]["size"]), " BIGGEST: ", biggest_repo_size)
-
         if repo_data[i]["size"] > biggest_repo_size:
             biggest_repo_size = repo_data[i]["size"]
             biggest_repo_index = i
@@ -65,26 +87,7 @@ def get_user():
     planguage = repo_data[biggest_repo_index]["language"]
     biggest_repo = {"name" : name_of_repo, "language" : planguage, "size" : biggest_repo_size}
 
-    # Count the % of programming languages used
-    total = sum(programming_languages.values())
-    perc_programming_languages = {k: v / total for total in (sum(programming_languages.values()),) for k, v in programming_languages.items()}
-
-    # Add a 'programmer level' for the user based on the amount of repos
-    if result['public_repos'] >= 40:
-        programmer_level = 'Godlike developer'
-    elif result['public_repos'] >= 20:
-        programmer_level = 'Rising star'
-    else:
-        programmer_level = 'Beginner :)'
-
-    # Add information on biggest repo
-    result["biggest_repo"] = biggest_repo
-    # Add programming rank
-    result['programmer_level'] = programmer_level
-    # Add percentages of programming languages used
-    result['percentage_of_programming_languages_used'] = perc_programming_languages
-    
-    return jsonify(result)
+    return biggest_repo, programming_languages
 
 
 if __name__ == '__main__':

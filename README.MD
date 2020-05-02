@@ -22,7 +22,8 @@ GET ?user=violehtone
 
 ```json
 {
-    "avatar_url":"https://avatars1.githubusercontent.com/u/33144646?v=4","biggest_repo": {
+    "avatar_url":"https://avatars1.githubusercontent.com/u/33144646?v=4",
+    "biggest_repo": {
         "language":"Python",
         "name":"SB1",
         "size":95465

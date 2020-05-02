@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, abort
 import requests
 import json
-
+import os
 
 app = Flask(__name__)
 
@@ -104,4 +104,5 @@ def getBiggestRepoAndProgrammingLanguagesUsed(repo_data):
 
 
 if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 5000))
     app.run(debug = True)

@@ -1,7 +1,9 @@
 # HR Helper
 An API that helps HR people to quickly fetch relevant information about a candidate by utilizing information from Github API v3.
 
+
 ## Getting started
+**Running server locally**
 To run the API locally, you need to have Flask installed (you can install it with pip install flask)
 
 To start this server locally, simply input the following on command line:
@@ -10,7 +12,15 @@ To start this server locally, simply input the following on command line:
 #$ flask run
 ```
 
-Or you can also access the API online at https://.... (work in progress)
+**Using API online**
+This HR-helper API is also running online on Heroku. You can  access the API  at
+
+```
+https://violehtonen-hrhelper.herokuapp.com/?user={username}
+```
+
+where {username} is the github account of the person you're looking for
+
 
 ## Using the HR helper API
 The HR helper API currently accepts only one type of requests as shown below. Given the github username, the API just simply fetches all the relevant information of this user.
@@ -28,19 +38,19 @@ GET http://...?user=violehtone
         "html_url": "https://github.com/violehtone",
         "public_repos": 33
     },
-    "Most_significant_work": {
-        "Repository name": "SB1",
-        "Programming language used": "Python",
-        "Project size (in rows)": 95465,
+    "most_significant_work": {
+        "repository_name": "SB1",
+        "programming_language_used": "Python",
+        "repository_size": 95465
     },
-    "Programming languages used (%)": {
+    "programming_languages_used": {
         "HTML": "13%",
         "Java": "13%",
         "JavaScript": "33%",
         "Python": "30%",
         "R": "10%"
     },
-    "programmer_level": "Rising star",
+    "programmer_level": "Rising star"
 }
 ```
 The **'user information'** contains only the relevant information about the person (i.e. name, number of repositories, and url to profile pic and github account)
